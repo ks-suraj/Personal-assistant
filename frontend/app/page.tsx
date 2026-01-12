@@ -13,7 +13,7 @@ type BackendSession = {
   created_at: string;
 };
 
-const API_BASE_URL = "https://1aae3cc569cb.ngrok-free.app"; // change to ngrok URL when needed
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"; // change to ngrok URL when needed
 const APP_PASSWORD = "12345";
 const NO_TOUCH_MODE = true;
 const SILENCE_TIMEOUT_MS = 900;
