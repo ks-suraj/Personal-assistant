@@ -1,0 +1,16 @@
+# Secrets
+backend/app/.env
+
+# Python cache
+backend/**/__pycache__/
+
+# Node build artifacts
+frontend/.next/
+
+# Virtual env (recommended)
+backend/venv/
+
+# Node deps (recommended)
+frontend/node_modules/
+
+savior.tsx
