@@ -13,4 +13,7 @@ backend/venv/
 # Node deps (recommended)
 frontend/node_modules/
 
-savior.tsx
+savior.tsx-e 
+# Environment files
+*.env
+*.env.*
