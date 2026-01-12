@@ -13,7 +13,7 @@ type BackendSession = {
   created_at: string;
 };
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000"; // change to ngrok URL when needed
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
 const APP_PASSWORD = "12345";
 const NO_TOUCH_MODE = true;
 const SILENCE_TIMEOUT_MS = 900;
@@ -53,7 +53,9 @@ export default function Home() {
 
   const loadSessions = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/sessions`);
+      const res = await fetch(`${API_BASE_URL}/sessions`, {
+        headers: { "ngrok-skip-browser-warning": "true" }
+      });
       setSessions(await res.json());
     } catch (e) {
       console.error("Failed to load sessions", e);
@@ -61,7 +63,9 @@ export default function Home() {
   };
 
   const loadSession = async (id: string) => {
-    const res = await fetch(`${API_BASE_URL}/sessions/${id}`);
+    const res = await fetch(`${API_BASE_URL}/sessions/${id}`, {
+      headers: { "ngrok-skip-browser-warning": "true" }
+    });
     const data = await res.json();
     setMessages(data.messages);
     setShowSidebar(false);
@@ -118,7 +122,10 @@ export default function Home() {
     try {
       const res = await fetch(`${API_BASE_URL}/query/text`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true"
+        },
         body: JSON.stringify({
           text,
           session_file: sessionFileRef.current,
@@ -142,8 +149,8 @@ export default function Home() {
       });
 
       // 🔤 Language detection unchanged
-      if (/[\u0B80-\u0BFF]/.test(data.text)) setListeningLang("ta");
-      else if (/[\u0C00-\u0C7F]/.test(data.text)) setListeningLang("te");
+      if (/[஀-௿]/.test(data.text)) setListeningLang("ta");
+      else if (/[ఀ-౿]/.test(data.text)) setListeningLang("te");
       else setListeningLang("en");
 
       // 🔊 PLAY BACKEND AUDIO (NOT default)
@@ -232,7 +239,10 @@ export default function Home() {
 
     const res = await fetch(`${API_BASE_URL}/query/text`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true"
+      },
       body: JSON.stringify({ text }),
     });
 
